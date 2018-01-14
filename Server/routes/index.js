@@ -1,16 +1,8 @@
 var express = require('express')
 var router = express.Router()
-router.all('/', function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-  next()
-})
+var DataBase = require('../DB/DataBase')
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' })
-})
-
+var db = new DataBase()
 router.post('/login', function (req, res) {
   res.send('hello world')
 })
