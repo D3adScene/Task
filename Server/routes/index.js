@@ -57,6 +57,11 @@ router.get('/stop', (req, res) => {
   logs = []
   console.log(logs)
   res.send(status.successRes)
+  try {
+    fs.close()
+  } catch(e) {
+    res.send(response.failedRes)
+  }
 })
 
 router.post('/login', (req, res) => {
