@@ -29,7 +29,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
 router.post('/start', (req, res) => {
   try {
     fs.watch(watchDir, (eventType, filename) => {
-      console.log('here')
       if (filename) {
         logs.push(`event type is: ${eventType} file name is: ${filename}`)
       }

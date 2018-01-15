@@ -35,7 +35,7 @@ export default {
         if (result) {
           axios({
             url: 'http://localhost:3000/login',
-            method: 'GET',
+            method: 'POST',
             withCredentials: false,
             data: {
               userName: this.userName,
