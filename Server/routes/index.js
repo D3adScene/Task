@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const fs = require('fs');
+const fs = require('fs')
 const sqlite3 = require('sqlite3').verbose()
 const path = require('path')
 const status = require('../helpers/status')
@@ -23,7 +23,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 /**
  * @function start - POST - start watching on the 'watch' folder.
  *                          prints to the logs the changing.
- * 
+ *
  * @returns status - Object.
  */
 router.post('/start', (req, res) => {
@@ -34,7 +34,7 @@ router.post('/start', (req, res) => {
       }
     })
     res.send(status.successRes)
-  } catch(e) {
+  } catch (e) {
     res.send(status.failedRes)
   }
 })
@@ -42,7 +42,7 @@ router.post('/start', (req, res) => {
 /**
  * @function status - GET - start watching on the 'watch' folder.
  *                          prints to the logs the changing.
- * 
+ *
  * @returns status - Object - with the current logs.
  */
 
@@ -53,20 +53,33 @@ router.get('/status', (req, res) => {
   res.send(response)
 })
 
+/**
+ * @function stop - GET - Clears the log and close the FileSystem watching.
+ *
+ * @returns status - Object
+ */
 router.get('/stop', (req, res) => {
   logs = []
   console.log(logs)
   res.send(status.successRes)
   try {
     fs.close()
-  } catch(e) {
-    res.send(response.failedRes)
+  } catch (e) {
+    res.send(status.failedRes)
   }
 })
 
+/**
+ * @function login - POST
+ *
+ * @param username - String
+ * @param password - String
+ *
+ * @returns status - Object
+ */
 router.post('/login', (req, res) => {
   if (!req.body) {
-    res.send(badData)
+    res.send(status.badData)
   } else {
     let params = req.body
     let username = params.userName
@@ -79,7 +92,7 @@ router.post('/login', (req, res) => {
           console.error(err)
           res.send(status.failedRes)
         } else if (row) {
-          let isPasswordOk = row.password == password
+          let isPasswordOk = row.password.toString() === password
 
           if (isPasswordOk) {
             res.send(status.successRes)
@@ -95,6 +108,10 @@ router.post('/login', (req, res) => {
       res.send(status.failedRes)
     }
   }
+})
+
+router.post('/logout', (req, res) => {
+  res.send(status.successRes)
 })
 
 module.exports = router

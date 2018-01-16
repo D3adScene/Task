@@ -1,14 +1,14 @@
 <template>
   <form>
-    <div>
+    <div class="input-container">
       <label for="username">Username</label>
       <input v-validate="'required'" type="text" name="username" v-model="userName" id="username">
-      <span v-show="errors.has('username')" class="help is-danger">{{ errors.first('username') }}</span>
+      <span v-show="errors.has('username')">{{ errors.first('username') }}</span>
     </div>
-    <div>
+    <div class="input-container">
       <label for="password">Password</label>
       <input v-validate="'required'" type="text" name="password" v-model="password" id="password">
-      <span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span>
+      <span v-show="errors.has('password')">{{ errors.first('password') }}</span>
     </div>
     <input type="button" value="Login" @click="login">
     <div>
@@ -63,4 +63,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+form {
+  text-align: center;
+
+  .input-container {
+    > span {
+      display: block;
+      color: red;
+    }
+  }
+}
 </style>
